@@ -8,7 +8,7 @@
             v-for="item in group.list"
             :key="item.id"
             class="item"
-            @click="onItemClick(item)"
+            @click="onItemClick(item)  "
           >
             <img class="avatar" v-lazy="item.pic" />
             <span class="name">{{ item.name }}</span>
