@@ -1,37 +1,55 @@
 <template>
-3
+  <div class="singer" v-loading="!singers.length">
+    <index-list :data="singers" @select="selectSinger"></index-list>
+    <!-- <router-view v-slot="{ Component }">
+      <transition appear name="slide">
+        <component :is="Component" :data="selectedSinger" />
+      </transition>
+    </router-view> -->
+  </div>
 </template>
+
 <script>
-import Header from "@/components/header/header";
-import Tab from "@/components/tab/tab";
+import { getSingerList } from '@/service/singer'
+import IndexList from '@/components/index-list/index-list'
+// import storage from 'good-storage'
+// import { SINGER_KEY } from '@/assets/js/constant'
 
 export default {
+  name: 'singer',
   components: {
-    MHeader: Header,
-    Tab
+    IndexList
+  },
+  data() {
+    return {
+      singers: [],
+      selectedSinger: null
+    }
+  },
+  async created() {
+    const result = await getSingerList()
+    this.singers = result.singers
+  },
+  methods: {
+    // selectSinger(singer) {
+    //   this.selectedSinger = singer
+    //   this.cacheSinger(singer)
+    //   this.$router.push({
+    //     path: `/singer/${singer.mid}`
+    //   })
+    // },
+    // cacheSinger(singer) {
+    //   storage.session.set(SINGER_KEY, singer)
+    // }
   }
-};
+}
 </script>
 
-<style lang="scss">
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
-
-// nav {
-//   padding: 30px;
-
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-//   }
-// }
+<style lang="scss" scoped>
+.singer {
+  position: fixed;
+  width: 100%;
+  top: 88px;
+  bottom: 0;
+}
 </style>
