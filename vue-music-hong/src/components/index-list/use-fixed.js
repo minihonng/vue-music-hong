@@ -17,8 +17,8 @@ export default function useFixed(props) {
         const listHeightsVal = listHeights.value
         let height = 0
 
-        // listHeightsVal.length = 0
-        // listHeightsVal.push(height)
+        listHeightsVal.length = 0
+        listHeightsVal.push(height)
 
         // for (let i = 0; i < list.length; i++) {
         //   height += list[i].clientHeight
